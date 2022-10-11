@@ -1,0 +1,29 @@
+﻿<Window x:Class="GameOfLife.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GameOfLife"
+        mc:Ignorable="d"
+        Title="GameOfLife" Height="450" Width="800">
+    <Grid>
+        <Canvas Name="Canvas" Height="400" Width="400">
+            <Button Name="CreateBtn" Height="25" Width="85" Content="Create" Click="CreateBtn_OnClick" Canvas.Top="30" Canvas.Left="-140" />
+            <Button Name="RandomBtn" Height="25" Width="85" Content="Select Random" Click="RandomBtn_OnClick" Canvas.Top="65" Canvas.Left="-140" />
+            <Button Name="StartBtn" Height="25" Width="85" Content="Start" Click="StartBtn_OnClick" Canvas.Top="30" Canvas.Left="-140" />
+            <Button Name="StopBtn" Height="25" Width="85" Content="Stop" Click="StopBtn_OnClick" Canvas.Top="30" Canvas.Left="-140" />
+            <Button Name="ResumeBtn" Height="25" Width="85" Content="Resume" Click="ResumeBtn_OnClick" Canvas.Top="30" Canvas.Left="-140" />
+            <GroupBox Name="Options" Header="Options" Width="85" Canvas.Top="100" Canvas.Left="-140" HorizontalContentAlignment="Stretch">
+                <StackPanel>
+                    <Label Name="SizeLbl" Height="25" HorizontalContentAlignment="Left" Content="Size:"  />
+                    <Slider Name="SizeSlider" Minimum="10" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="10" ValueChanged="SizeSlider_OnValueChanged" />
+                    <Label Name="SpeedLbl" Height="25" HorizontalContentAlignment="Left" Content="Speed:"  />
+                    <Slider Name="SpeedSlider" Minimum="5" Maximum="30" IsSnapToTickEnabled="True" TickFrequency="5" ValueChanged="SpeedSlider_OnValueChanged" />
+                </StackPanel>
+            </GroupBox>
+            <Label Name="DayCount" Height="25" Width="85" Content="Days: 0" HorizontalContentAlignment="Center" Canvas.Top="275" Canvas.Left="-140" />
+            <Label Name="LifeCount" Height="25" Width="85" Content="Alive: 0" HorizontalContentAlignment="Center" Canvas.Top="300" Canvas.Left="-140" />
+            <Label Name="DeadCount" Height="25" Width="85" Content="Dying: 0" HorizontalContentAlignment="Center" Canvas.Top="325" Canvas.Left="-140" />
+        </Canvas>
+    </Grid>
+</Window>
