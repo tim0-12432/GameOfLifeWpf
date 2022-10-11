@@ -13,11 +13,11 @@
             <Button Name="StartBtn" Height="25" Width="85" Content="Start" Click="StartBtn_OnClick" Canvas.Top="30" Canvas.Left="-140" />
             <Button Name="StopBtn" Height="25" Width="85" Content="Stop" Click="StopBtn_OnClick" Canvas.Top="30" Canvas.Left="-140" />
             <Button Name="ResumeBtn" Height="25" Width="85" Content="Resume" Click="ResumeBtn_OnClick" Canvas.Top="30" Canvas.Left="-140" />
-            <GroupBox Name="Options" Header="Options" Width="85" Canvas.Top="100" Canvas.Left="-140" HorizontalContentAlignment="Stretch">
+            <GroupBox Name="Options" Header="Options" Width="85" BorderBrush="Gray" Canvas.Top="100" Canvas.Left="-140" HorizontalContentAlignment="Stretch">
                 <StackPanel>
-                    <Label Name="SizeLbl" Height="25" HorizontalContentAlignment="Left" Content="Size:"  />
+                    <Label Name="SizeLbl" Height="25" HorizontalContentAlignment="Left" Content="{Binding ElementName=SizeSlider, Path=Value, Mode=OneWay}" ContentStringFormat="Size: {0}" />
                     <Slider Name="SizeSlider" Minimum="10" Maximum="100" IsSnapToTickEnabled="True" TickFrequency="10" ValueChanged="SizeSlider_OnValueChanged" />
-                    <Label Name="SpeedLbl" Height="25" HorizontalContentAlignment="Left" Content="Speed:"  />
+                    <Label Name="SpeedLbl" Height="25" HorizontalContentAlignment="Left" Content="{Binding ElementName=SpeedSlider, Path=Value, Mode=OneWay}" ContentStringFormat="Speed: {0}" />
                     <Slider Name="SpeedSlider" Minimum="5" Maximum="30" IsSnapToTickEnabled="True" TickFrequency="5" ValueChanged="SpeedSlider_OnValueChanged" />
                 </StackPanel>
             </GroupBox>

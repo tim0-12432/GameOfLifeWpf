@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -39,6 +40,7 @@ namespace GameOfLife
         public MainWindow()
         {
             InitializeComponent();
+            
             StartBtn.Visibility = Visibility.Hidden;
             RandomBtn.Visibility = Visibility.Hidden;
             StopBtn.Visibility = Visibility.Hidden;
@@ -52,10 +54,8 @@ namespace GameOfLife
             _speed = 1500;
             
             SizeSlider.Value = _width;
-            SizeLbl.Content = "Size: " + _width;
             
             SpeedSlider.Value = ((double)_speed / 100);
-            SpeedLbl.Content = "Speed: " + SpeedSlider.Value;
             
             _timer = new DispatcherTimer();
             _timer.Tick += Timer_Tick;
@@ -119,6 +119,17 @@ namespace GameOfLife
             _timer.Start();
             ResumeBtn.Visibility = Visibility.Hidden;
             StopBtn.Visibility = Visibility.Visible;
+        }
+        
+        private void SizeSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            _width = (int) SizeSlider.Value;
+            _height = (int) SizeSlider.Value;
+        }
+
+        private void SpeedSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            _speed = ((int) SizeSlider.Value) * 100;
         }
         
         private void CreateCanvas(int width, int height)
@@ -264,19 +275,6 @@ namespace GameOfLife
             }
 
             return neighbourCount;
-        }
-
-        private void SizeSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            _width = (int) SizeSlider.Value;
-            _height = (int) SizeSlider.Value;
-            SizeLbl.Content = "Size: " + _width;
-        }
-
-        private void SpeedSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            _speed = ((int) SizeSlider.Value) * 100;
-            SpeedLbl.Content = "Speed: " + SpeedSlider.Value;
         }
     }
 }
