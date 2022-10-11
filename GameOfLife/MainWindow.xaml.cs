@@ -31,11 +31,15 @@ namespace GameOfLife
         private int _days = 0;
         private int _alive = 0;
         private int _dead = 0;
+        private int _maxNum = 0;
         private bool _isRunning = false;
-        private Dictionary<int, KeyValuePair<int, int>> statistics = new Dictionary<int, KeyValuePair<int, int>>();
+        private Dictionary<int, Chart.StatisticFrame> _statistics = new Dictionary<int, Chart.StatisticFrame>();
         
         private Cell[] _cells;
         private Cell[,] _cells2D;
+
+        private bool _showChart = true;
+        private Chart _chart;
         
         public MainWindow()
         {
@@ -54,8 +58,11 @@ namespace GameOfLife
             _speed = 1500;
             
             SizeSlider.Value = _width;
-            
             SpeedSlider.Value = ((double)_speed / 100);
+            ChartCheck.IsChecked = _showChart;
+            
+            _chart = new Chart(Chart);
+            _chart.Hide();
             
             _timer = new DispatcherTimer();
             _timer.Tick += Timer_Tick;
@@ -103,7 +110,12 @@ namespace GameOfLife
             {
                 _cells[i].DrawStartSimulation();
             }
-            
+
+            if (_showChart)
+            {
+                _statistics.Add(_days, new Chart.StatisticFrame(_days, _alive, _dead));
+                _chart.Show();
+            }
             _timer.Start();
         }
         
@@ -130,6 +142,18 @@ namespace GameOfLife
         private void SpeedSlider_OnValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             _speed = ((int) SizeSlider.Value) * 100;
+        }
+        
+        
+        private void ChartCheck_OnChecked(object sender, RoutedEventArgs e)
+        {
+            _showChart = true;
+        }
+        
+        
+        private void ChartCheck_OnUnchecked(object sender, RoutedEventArgs e)
+        {
+            _showChart = false;
         }
         
         private void CreateCanvas(int width, int height)
@@ -212,7 +236,21 @@ namespace GameOfLife
                 }
             }
             DayCount.Content = "Day: " + _days;
-            statistics.Add(_days, new KeyValuePair<int, int>(_alive, _dead));
+
+            if (_showChart)
+            {
+                if (_alive > _maxNum)
+                {
+                    _maxNum = _alive;
+                }
+                if (_dead > _maxNum)
+                {
+                    _maxNum = _dead;
+                }
+                
+                _statistics.Add(_days, new Chart.StatisticFrame(_days, _alive, _dead));
+                _chart.Draw(_statistics, _maxNum);
+            }
         }
 
         private int GetNeighbours(int x, int y)
